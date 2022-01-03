@@ -1,0 +1,9 @@
+class Solution:
+    def heightChecker(self, heights: List[int]) -> int:
+        heightsrt = heights.copy()
+        heightsrt.sort()
+        place = 0
+        for x in range(len(heights)):
+            if(heightsrt[x] != heights[x]): 
+                place+=1
+        return place
