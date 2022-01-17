@@ -17,9 +17,21 @@ import sys
 
 def repeatedString(s, n):
     # Write your code here
-    x = (n//len(s))
-    y = (n % len(s))
-    return s[:y].count("a")*(x+1) + s[y:].count("a")*x
+#     x = (n//len(s))
+#     y = (n % len(s))
+#     return s[:y].count("a")*(x+1) + s[y:].count("a")*x
+    count = 0
+    mod = n % len(s)
+    per = n - mod
+    per = per // len(s)
+    for i in range(len(s)):
+        if s[i] == "a":
+            count += 1
+    count *= per
+    for i in range(mod):
+        if s[i] == "a":
+            count += 1
+    return count
 
 
 
