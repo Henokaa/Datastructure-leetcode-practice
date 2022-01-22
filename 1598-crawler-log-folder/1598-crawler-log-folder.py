@@ -6,7 +6,7 @@ class Solution:
                 if stack:
                     stack.pop()
             elif i == "./":
-                stack
+                continue
             else: 
                 stack.append(i)
         return len(stack)
