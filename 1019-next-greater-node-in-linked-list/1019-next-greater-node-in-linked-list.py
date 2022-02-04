@@ -4,27 +4,16 @@
 #         self.val = val
 #         self.next = next
 class Solution:
-    def nextLargerNodes(self, head: Optional[ListNode]) -> List[int]:
-        stack = []
-        mapp = []
-        i = 0
-        while head:
-            x = i
-            while stack and head.val > stack[-1][0]:
-                mapp.append([stack[-1][1], head.val])
-                stack.pop()
-            stack.append([head.val, i])
-            head = head.next
-            i += 1
-        result = [0]*i
-        print(mapp)
-        while mapp:
-            result[mapp[-1][0]] = mapp[-1][1]
-            mapp.pop()
-        return result
-        # while stack:
-        #     mapp.insert(stack[-1][1], 0)
-        #     stack.pop()
-        # return mapp
+        def nextLargerNodes(self, head):
+            
+            res, stack = [], []
+            while head:
+                while stack and stack[-1][1] < head.val:
+                    res[stack.pop()[0]] = head.val
+                stack.append([len(res), head.val])
+                res.append(0)
+                head = head.next
+            return res
+    
             
         
