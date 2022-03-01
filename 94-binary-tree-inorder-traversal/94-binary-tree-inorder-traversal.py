@@ -11,16 +11,7 @@ class Solution:
         def rec(root):
             if not root:
                 return []
-            if root.left:
-                rec(root.left)
-                
-            order.append(root.val)
-            
-            if root.right:
-                rec(root.right)
-                
-            
-            return order
+            return rec(root.left) + [root.val] + rec(root.right)
         return rec(root)
         
         
