@@ -7,13 +7,22 @@
 class Solution:
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
         
-        def valid(node, left, right):
-            if not node:
-                return True
-            if not (node.val < right and node.val > left):
+        # function for finding the inorder traversal result
+        def inOrder(root):
+            ans = []
+            if root:
+                ans += inOrder(root.left) + [root.val] + inOrder(root.right)
+            return ans
+        
+        output = inOrder(root)  # store the inorder traversal in output array
+        
+        # check whether output array is sorted or not
+        # if sorted then, Valid BST
+        # otherwise, not a BST
+        for i in range(1, len(output)):
+            if output[i-1] >= output[i]:  # i.e output array is not sorted
                 return False
-            
-            return (valid(node.left, left, node.val) and valid (node.right, node.val, right))
-        return valid(root, float("-inf"), float("inf"))
+
+        return True
             
     
