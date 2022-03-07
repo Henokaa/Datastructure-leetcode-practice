@@ -21,3 +21,27 @@ def cookies(k, A):
 
     return count
 
+#Find the Running Median
+def runningMedian(a):
+    # Write your code here
+    def Median(maxHeap,minHeap):
+        if len(maxHeap) == len(minHeap):
+            return (-maxHeap[0] + minHeap[0])/2
+        if len(maxHeap) > len(minHeap):
+            return float(-maxHeap[0])
+        else:
+            return float(minHeap[0])
+    maxHeap = []  
+    minHeap = []  
+    val = []
+    for v in a:
+        if not maxHeap or v < -maxHeap[0]:
+            heapq.heappush(maxHeap,-v)
+        else:
+            heapq.heappush(minHeap,v)
+        if len(maxHeap) - len(minHeap) >= 2:
+            heapq.heappush(minHeap,-heapq.heappop(maxHeap))
+        elif len(minHeap) - len(maxHeap) >= 2:
+            heapq.heappush(maxHeap,-heapq.heappop(minHeap))
+        val.append(round(Median(maxHeap, minHeap),1))
+    return val
