@@ -1,4 +1,5 @@
 """
+https://leetcode.com/problems/maximum-depth-of-n-ary-tree/discuss/275725/Python-DFS-solution-with-explanation
 # Definition for a Node.
 class Node:
     def __init__(self, val=None, children=None):
