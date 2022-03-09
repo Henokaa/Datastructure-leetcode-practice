@@ -9,19 +9,19 @@ class Node:
 class Solution:
     def maxDepth(self, root: 'Node') -> int:
         
-        if root is None:
-            # empty node or empty tree
+        if root == None:
             return 0
-    
-        else:
-            # DFS to choose the longest path
-            
-            if root.children:
-                # current node has subtrees
-                print("A")
-                return max( self.maxDepth(child) for child in root.children ) + 1
-            
-            else:
-                # current node is leaf node
-                return 1
+        # Depth level of the tree
+        depth = 0
         
+        # Loops through children array
+        for child in root.children:
+            # Compares current depth of depth with a new level of depth 
+            # Sets the biggest value to variable depth
+            
+            depth = max(depth, self.maxDepth(child))
+            
+        #if leaf and every level becomes leaf at some point.
+        # As going deeper into the tree increases depth by 1
+        print ('root ' + str(root.val) + ' depth ' + str(depth + 1))
+        return depth + 1 
