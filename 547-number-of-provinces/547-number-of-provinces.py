@@ -3,13 +3,13 @@ class Solution:
         visited = set()
         provinces = 0
         
-        def dfs(node, matrix):
-            visited.add(node)
+        def dfs(i, isConnected):
+            visited.add(i)
         
-            for j in range(len(matrix[node])):
-                if j not in visited and matrix[node][j] != 0:
-                    dfs(j, matrix)
-        print(isConnected)
+            for j in range(len(isConnected[0])):
+                if j not in visited and isConnected[i][j] != 0:
+                    dfs(j, isConnected)
+        
         for i in range(len(isConnected)):
             if i not in visited:
                 provinces += 1
