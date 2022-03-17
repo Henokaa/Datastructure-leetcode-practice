@@ -1,23 +1,18 @@
 class Solution:
     def countNegatives(self, grid):
-        def bin(row):
-            start, end = 0, len(row)-1
+        cur = 0
+        for i in grid:
             index = -1
-            while start <= end:
-                mid = start +((end -start) // 2)
-                if row[mid]<0:
+            left, right = 0 , len(i)- 1
+            while left <= right:
+                mid = left + ((right - left) // 2)
+                if i[mid] < 0:
                     index = mid
-                    end = mid - 1
+                    right = mid - 1
                 else:
-                    start = mid+1
+                    left = mid + 1
             if index != -1:
-                print (index)
-                return len(row) - index
-            else:
-                return 0
-
-        count = 0
-        for row in grid:
-            count += bin(row)
-        
-        return(count)
+                cur += len(i) - index
+                
+        return cur
+                
