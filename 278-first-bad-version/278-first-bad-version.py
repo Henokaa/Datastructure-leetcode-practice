@@ -7,7 +7,7 @@ class Solution:
         right = n
         index = 0
         while left <= right:
-            mid = left + (right - left)// 2
+            mid = (left + right)// 2
             if isBadVersion(mid) == False:
                 left = mid + 1
             elif isBadVersion(mid) == True:
