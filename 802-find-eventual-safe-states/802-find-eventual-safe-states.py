@@ -8,6 +8,7 @@ class Solution:
         q = deque()
         visited = set()
         
+        
         # counts how many times a node is left to reach
         cnt = Counter()
         
@@ -16,21 +17,25 @@ class Solution:
             # count how many outgoing edges, -1 when reached
             cnt[i] = len(neighbors)
             # record reverse edge
-            for n in neighbors:
+            for n in neighbors: # saving the parents for each node just like indegree
                 n_table[n].append(i)
             if len(neighbors) == 0:
                 # no outgoing edges, set as start
-                q.append(i)
-                visited.add(i)
-
+                q.append(i) # elements with no child
+                visited.add(i) 
+        print(cnt)
+        '''
+        graph - ({0: 2, 1: 2, 2: 1, 3: 1, 4: 1, 5: 0, 6: 0}) 0 have two child
+        parent -  {1: [0], 2: [0, 1], 3: [1], 5: [2, 4], 0: [3]} decrease 1 in the number of                                                                        child in parent. 
+        '''
         res = []
         
         while q:
             curr = q.popleft()
             
-            res.append(curr)
+            res.append(curr) 
             
-            for neighbor in n_table[curr]:
+            for neighbor in n_table[curr]: # 
                 cnt[neighbor] -= 1
                 if neighbor not in visited and cnt[neighbor] == 0:
                     q.append(neighbor)
