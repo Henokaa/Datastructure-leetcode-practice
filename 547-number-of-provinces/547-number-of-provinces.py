@@ -1,28 +1,32 @@
 class Solution:
     def findCircleNum(self, isConnected: List[List[int]]) -> int:
-        visited = set()
-        provinces = 0
+        parent =[i for i in range(len(isConnected)*len(isConnected))]
+        rank = [1] * len(isConnected)
+        self.size = len(isConnected)
         
-        def dfs(i, isConnected):
-            visited.add(i)
-        
-            for j in range(len(isConnected[0])):
-                if j not in visited and isConnected[i][j] != 0:
-                    dfs(j, isConnected)
+        def findset(x):
+            if x == parent[x]:
+                return x
+            parent[x] = findset(parent[x])
+            return parent[x]
+        def union(x,y):
+            x = findset(x)
+            y = findset(y)
+            
+            if x != y:
+                if rank[x] > rank[y]:
+                    parent[y] = x
+                elif rank[x] < rank[y]:
+                    parent[x] = y
+                elif rank[x] == rank[y]:
+                    parent[x] = y
+                    rank[x] += 1
+                self.size -= 1
+            
         
         for i in range(len(isConnected)):
-            if i not in visited:
-                provinces += 1
-            dfs(i, isConnected)
-            
-        return provinces
-    
-    '''
-      1 2 3
-    1|1 1 0
-    2|1 1 0
-    3|0 0 1
-    
-    it passes the first row to the dfs then visit every thing in that row, go to the second row
-    same their then on the third because it is not in visited it increase by one.
-    '''
+            for j in range(len(isConnected[0])):
+                if i!=j and isConnected[i][j] == 1:
+                    union(i,j)
+        
+        return self.size 
