@@ -5,28 +5,32 @@ class Solution:
         emails_accounts_map = defaultdict(list)
         res = []
         # Build up the graph.
-        for i, account in enumerate(accounts):
-            for j in range(1, len(account)):
-                email = account[j]
+        
+        for i in range(len(accounts)):
+            for j in range(len(accounts[i])):
+                email = accounts[i][j]
                 emails_accounts_map[email].append(i)
-                
         print(emails_accounts_map)
-        # DFS code for traversing accounts.
-        def dfs(i, emails):
+        
+        def dfs(emails, i):
             if visited_accounts[i]:
                 return
             visited_accounts[i] = True
-            for j in range(1, len(accounts[i])):
-                email = accounts[i][j]
-                emails.add(email)
-                for neighbor in emails_accounts_map[email]:
-                    dfs(neighbor, emails)
-        # Perform DFS for accounts and add to results.
+            
+            for x in range(len(accounts[i])):
+                if x == 0:
+                    continue
+                emails.add(accounts[i][x])
+                for a in emails_accounts_map[accounts[i][x]]:
+                    dfs(emails, a)
+            
+
         for i, account in enumerate(accounts):
             if visited_accounts[i]:
                 continue
-            name, emails = account[0], set()
-            dfs(i, emails) # the index and the emails of 0 then 
+            emails = set()
+            name = accounts[i][0]
+            dfs(emails, i)
             res.append([name] + sorted(emails))
         return res
-                
+            
