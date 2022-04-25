@@ -5,8 +5,9 @@ class Solution:
         self.fill(image,sr,sc,image[sr][sc], newColor)
         return image
     def fill(self, image, r, c,initial, newColor):
-        if (r<0 or r>= len(image) or c<0 or c>= len(image[0]) or image[r][c] != initial):
-            return
+        if (r<0 or r>= len(image) or c<0 or c>= len(image[0]) or image[r][c] != initial): 
+            # image[r][c] is the one that changes should be same with initial 
+            return 
         image[r][c] = newColor
         self.fill(image, r+1, c, initial, newColor)
         self.fill(image, r-1, c, initial, newColor)
