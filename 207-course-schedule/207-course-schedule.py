@@ -1,38 +1,26 @@
 from collections import deque
 class Solution:
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
-        graph={}
-        indegree={}
-        v = numCourses
-        a = prerequisites
-        for i in range(v):
-            graph[i]=[]
-            indegree[i]=0
-        # {0: 0, 1: 0}
-        # print(indegree)
-        for edge in a:
-            child=edge[0]
-            parent=edge[1]
-            indegree[child]+=1
-            graph[parent].append(child)
-        # print(indegree) this is like incoming
-        # {0: 0, 1: 1}
-        # print(graph) childs
-        # {0: [1], 1: []} 
-        sources=deque()
-        for i,j in indegree.items():
-            if(j==0):
-                sources.append(i)
-        # print(sources)
-        # deque([0])
-        ans=[]
-        while sources:
-            c=sources.popleft()
-            ans.append(c)
-            for nbr in graph[c]: # graph[0] - [1] the nodes 
-                indegree[nbr]-=1 # indegree with number in 1 there was one incomming decrease
-                if(indegree[nbr]==0):
-                    sources.append(nbr)
-        if(len(ans)==v):
+        preMap = { i: [] for i in range(numCourses)}
+        for crs, pre in prerequisites:
+            preMap[crs].append(pre)
+            
+        visitSet = set()
+        def dfs(crs):
+            if crs in visitSet:
+                return False
+            if preMap[crs] == []:
+                return True
+            
+            visitSet.add(crs)
+            for pre in preMap[crs]:
+                if dfs(pre) == False:
+                    return False
+            visitSet.remove(crs)
+            preMap[crs] = []
             return True
-        return False
+        for crs in range(numCourses):
+            if not dfs(crs):  
+                # if false return  false
+                return False
+        return True
